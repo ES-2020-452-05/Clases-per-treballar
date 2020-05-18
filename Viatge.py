@@ -151,3 +151,11 @@ class Viatge:
     		if self.__destins__[l]==desti:
     			self.__destins__.pop(v)
     			break
+	
+
+    def errorPago(self,isCorrect):
+        if isCorrect==False:
+            print("Se ha detectado un error en el pago")
+            return -1
+        else:
+            return 1
