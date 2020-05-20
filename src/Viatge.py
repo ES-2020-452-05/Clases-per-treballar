@@ -31,21 +31,21 @@ class Viatge:
         self.__maxim__ = 4
         
     def afegirVol(self, v):
-        if(len(self.__VolsReservar__) < 4):
+        if(self.NumeroVols() < 4):
             self.__VolsReservar__.append(v)
             return 1
         else:
             return -1
         
     def afegirHotel(self, v):
-        if(len(self.__HotelsReservar__) < 4):
+        if(self.NumeroHotels() < 4):
             self.__HotelsReservar__.append(v)
             return 1
         else:
             return -1
         
     def afegirCotxe(self, v):
-        if(len(self.__CotxesReservar__) < 4):
+        if(self.NumeroCotxes() < 4):
             self.__CotxesReservar__.append(v)
             return 1
         else:
@@ -112,13 +112,10 @@ class Viatge:
             
     def PagamentViatge(self): #falta implementacio d'errors pero no ens ho demanen encara
         
-        print("Introdueix el nom del titular de la targeta: \n")
         self.__nomTitular__ =input()
         
-        print("Introdueix el tipus de targeta: \n")
         self.__tipusTargeta__ =input()
         
-        print("Introdueix el codi de Seguretat de la targeta: \n")
         self.__codiSeguretat__ =input()
         
         pag=Bank()
@@ -138,22 +135,32 @@ class Viatge:
     
     def NumeroCotxes(self):
         return len(self.__CotxesReservar__)
-    
-    def NumeroDestins(self):
-        return len(self.__destins__)
-        
+            
     def EliminarDestins(self, desti):
-    	for v in len(self.__VolsReservar__):
-    		if self.__VolsReservar__[v].__desti__==desti:
+    	for v in range(self.NumeroVols()):
+    		if self.__VolsReservar__[v].getDesti()==desti:
     			self.__VolsReservar__.pop(v)
     			break
-    	for l in len(self.__destins__):
-    		if self.__destins__[l]==desti:
-    			self.__destins__.pop(v)
-    			break
-    def ErrorPago(self,isCorrect):
+
+    def ErrorPagament(self,isCorrect):
         if isCorrect==False:
             print("Se ha detectado un error en el pago")
             return -1
         else:
             return 1
+        
+    def gestioallotjaments(gestio, h,self): #0 per afegir un allotjament i 1 per treurel. h es un objecte de la classe hotel
+        if(gestio==0):
+        	self.afegirhotel(h)
+        if(gestio==1):
+           for i in range(self.NumeroHotels()):
+               if self.__HotelsReservar__[i].getCodi()==h.getCodi():
+                   self.__HotelsReservar__.pop(i)
+    def gestiovehicles(gestio,c,self): #0 per afegir un vehicle i 1 per treurel. c es un objecte de la classe cotxe
+        if(gestio==0):
+        	self.afegirCotxe(c)
+        if(gestio==1):
+           for i in range(self.NumeroCotxes()):
+               if self.__CotxesReservar__[i].getCodi()==c.getCodi():
+                   self.__CotxesReservar__.pop(i)
+            

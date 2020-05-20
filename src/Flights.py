@@ -15,3 +15,6 @@ class Flights:
         self.__numPassatgers__ = -1
         self.__taxav__ = -1
         self.__importv__ = -1
+        
+    def getDesti(self):
+        return self.__desti__

@@ -16,3 +16,5 @@ class Cars:
         self.__diesReserva__ = -1
         self.__taxac__ = -1
         self.__importc__ = -1
+    def getCodi(self):
+        return self.__codi__
