@@ -135,6 +135,9 @@ class Viatge:
     
     def NumeroCotxes(self):
         return len(self.__CotxesReservar__)
+    
+    def NumeroDestins(self):
+        return len(self.__VolsReservar__)
             
     def EliminarDestins(self, desti):
     	for v in range(self.NumeroVols()):

@@ -16,5 +16,13 @@ class Flights:
         self.__taxav__ = -1
         self.__importv__ = -1
         
+    def __initp__(self, a,b,c,d,e):
+        self.__codiVol__ = a
+        self.__desti__ = b
+        self.__numPassatgers__ = c
+        #afegit per nosaltres
+        self.__preuv__=d
+        self.__taxav__=e
+        
     def getDesti(self):
         return self.__desti__
