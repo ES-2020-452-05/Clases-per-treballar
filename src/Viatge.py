@@ -110,22 +110,15 @@ class Viatge:
         self.__dadesPagament__.__import__=Import
         return Import
             
-    def PagamentViatge(self): #falta implementacio d'errors pero no ens ho demanen encara
-        
-        self.__nomTitular__ =input()
-        
-        self.__tipusTargeta__ =input()
-        
-        self.__codiSeguretat__ =input()
-        
+    def PagamentViatge(self): #falta implementacio d'errors pero no ens ho demanen encara    
         pag=Bank()
-        res=pag.do_payment(self,PaymentData())
+        res=pag.do_payment(self.__usuari__, self.__dadesPagament__)
         return res
          
-    def ConfirmarReservaVols(self):
+    def ConfirmarReservaVols(self): #no considerem errors
         auxRes = Skyscanner()
-        resultat = auxRes.confirm_reserve(self, self.__VolsReservar__) 
-        return resultat
+        auxRes.confirm_reserve(self.__usuari__, self.__VolsReservar__) 
+
         
     def NumeroVols(self):
         return len(self.__VolsReservar__)
@@ -167,3 +160,22 @@ class Viatge:
                if self.__CotxesReservar__[i].getCodi()==c.getCodi():
                    self.__CotxesReservar__.pop(i)
             
+    def GestionarConfirmacioReserva(self): #fem la reserva dels vols i mirem si hi han errors o no
+        api_SkyScanner = Skyscanner()
+        resultatConfirmacio = api_SkyScanner.confirm_reserve(self.__usuari__, self.__VolsReservar__)
+        return resultatConfirmacio
+    
+    def ReservaVolsConsiderantErrors(self):
+        api_SkyScanner = Skyscanner()
+        resultatConfirmacio = api_SkyScanner.confirm_reserve(self.__usuari__, self.__VolsReservar__)
+        i = 0
+        while(resultatConfirmacio == False & i < 3):
+            resultatConfirmacio = api_SkyScanner.confirm_reserve(self.__usuari__, self.__VolsReservar__)
+            i = i + 1
+        if(i == 3):
+            api_banc = Bank()
+            self.__dadesPagament__.__import__ = -1*self.__dadesPagament__.__import__
+            api_banc.do_payment(self.__usuari__, self.__dadesPagament__)
+            self.__dadesPagament__.__import__ = -1*self.__dadesPagament__.__import__
+        return resultatConfirmacio
+        
