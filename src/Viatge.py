@@ -178,4 +178,30 @@ class Viatge:
             api_banc.do_payment(self.__usuari__, self.__dadesPagament__)
             self.__dadesPagament__.__import__ = -1*self.__dadesPagament__.__import__
         return resultatConfirmacio
-        
+    
+      def ReservaHotelsConsiderantErrors(self):
+        api_Booking = Booking()
+        resultatConfirmacio = api_Booking.confirm_reserve(self.__usuari__, self.__HotelsReservar__)
+        i = 0
+        while(resultatConfirmacio == False & i < 3):
+            resultatConfirmacio = api_Booking.confirm_reserve(self.__usuari__, self.__HotelsReservar__)
+            i = i + 1
+        if(i == 3):
+            api_banc = Bank()
+            self.__dadesPagament__.__import__ = -1*self.__dadesPagament__.__import__
+            api_banc.do_payment(self.__usuari__, self.__dadesPagament__)
+            self.__dadesPagament__.__import__ = -1*self.__dadesPagament__.__import__
+        return resultatConfirmacio
+    def ReservaCarsConsiderantErrors(self):
+        api_rentalCars = Rentalcars()
+        resultatConfirmacio = api_rentalCars.confirm_reserve(self.__usuari__, self.__CotxesReservar__)
+        i = 0
+        while(resultatConfirmacio == False & i < 3):
+            resultatConfirmacio = api_rentalCars.confirm_reserve(self.__usuari__, self.__CotxesReservar__)
+            i = i + 1
+        if(i == 3):
+            api_banc = Bank()
+            self.__dadesPagament__.__import__ = -1*self.__dadesPagament__.__import__
+            api_banc.do_payment(self.__usuari__, self.__dadesPagament__)
+            self.__dadesPagament__.__import__ = -1*self.__dadesPagament__.__import__
+        return resultatConfirmacio
