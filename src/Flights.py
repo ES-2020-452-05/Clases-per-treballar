@@ -20,8 +20,7 @@ class Flights:
         self.__codiVol__ = a
         self.__desti__ = b
         self.__numPassatgers__ = c
-        #afegit per nosaltres
-        self.__preuv__=d
+        self.__importv__=d
         self.__taxav__=e
         
     def getDesti(self):

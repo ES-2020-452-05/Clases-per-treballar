@@ -98,26 +98,26 @@ class Viatge:
                 Import=Import+v.__taxav__
                 
         for h in self.__HotelsReservar__:
-            Import = Import+round((h.__numHostes__ / 3),0)*h.__importh__*h.__durada__
+            Import = Import+ h.__importh__*h.__durada__*h.__numHabitacions__
             if(h.__taxah__>0):
                 Import=Import+h.__taxah__
                 
         for c in self.__CotxesReservar__:
-            Import=Import+c.__diesReserva__ * round((self.__numPersones__ / 4),0)*c.__importc__
+            Import=Import+c.__diesReserva__ *c.__importc__
             if(c.__taxac__>0):
                 Import=Import+c.__taxac__
                 
         self.__dadesPagament__.__import__=Import
         return Import
             
-    def PagamentViatge(self): #falta implementacio d'errors pero no ens ho demanen encara    
-        pag=Bank()
-        res=pag.do_payment(self.__usuari__, self.__dadesPagament__)
-        return res
+    def PagamentViatge(self, api_banc): #falta implementacio d'errors pero no ens ho demanen encara    
+        api_banc.do_payment(self.__usuari__, self.__dadesPagament__)
+        return True
+
          
-    def ConfirmarReservaVols(self): #no considerem errors
-        auxRes = Skyscanner()
-        auxRes.confirm_reserve(self.__usuari__, self.__VolsReservar__) 
+    def ConfirmarReservaVols(self, api_SkyScanner): #no considerem errors
+        api_SkyScanner.confirm_reserve(self.__usuari__, self.__VolsReservar__)
+        return True
 
         
     def NumeroVols(self):
@@ -138,49 +138,53 @@ class Viatge:
     			self.__VolsReservar__.pop(v)
     			break
 
-    def ErrorPagament(self,isCorrect):
-        if isCorrect==False:
-            print("Se ha detectado un error en el pago")
-            return -1
-        else:
-            return 1
+    def GestionarErrorPagament(self, api_banc):
+        resultat = api_banc.do_payment(self.__usuari__, self.__dadesPagament__)
+        return resultat
         
-    def gestioallotjaments(gestio, h,self): #0 per afegir un allotjament i 1 per treurel. h es un objecte de la classe hotel
+    def gestioallotjaments(self, gestio, h): #0 per afegir un allotjament i 1 per treurel. h es un objecte de la classe hotel
         if(gestio==0):
-        	self.afegirhotel(h)
+        	self.afegirHotel(h)
         if(gestio==1):
            for i in range(self.NumeroHotels()):
                if self.__HotelsReservar__[i].getCodi()==h.getCodi():
                    self.__HotelsReservar__.pop(i)
-    def gestiovehicles(gestio,c,self): #0 per afegir un vehicle i 1 per treurel. c es un objecte de la classe cotxe
+        self.calcularPreuTotal()
+    def gestioCotxes(self, gestio,c): #0 per afegir un vehicle i 1 per treurel. c es un objecte de la classe cotxe
         if(gestio==0):
         	self.afegirCotxe(c)
         if(gestio==1):
            for i in range(self.NumeroCotxes()):
                if self.__CotxesReservar__[i].getCodi()==c.getCodi():
                    self.__CotxesReservar__.pop(i)
+        self.calcularPreuTotal()
             
-    def GestionarConfirmacioReserva(self): #fem la reserva dels vols i mirem si hi han errors o no
-        api_SkyScanner = Skyscanner()
+    def GestionarConfirmacioReserva(self, api_SkyScanner): #fem la reserva dels vols i mirem si hi han errors o no
         resultatConfirmacio = api_SkyScanner.confirm_reserve(self.__usuari__, self.__VolsReservar__)
         return resultatConfirmacio
     
-    def ReservaVolsConsiderantErrors(self):
-        api_SkyScanner = Skyscanner()
+    def ReservaVolsConsiderantErrors(self, api_SkyScanner):
         resultatConfirmacio = api_SkyScanner.confirm_reserve(self.__usuari__, self.__VolsReservar__)
         i = 0
         while(resultatConfirmacio == False & i < 3):
             resultatConfirmacio = api_SkyScanner.confirm_reserve(self.__usuari__, self.__VolsReservar__)
             i = i + 1
         if(i == 3):
-            api_banc = Bank()
             self.__dadesPagament__.__import__ = -1*self.__dadesPagament__.__import__
-            api_banc.do_payment(self.__usuari__, self.__dadesPagament__)
+            self.PagamentViatge()
             self.__dadesPagament__.__import__ = -1*self.__dadesPagament__.__import__
         return resultatConfirmacio
+        
+    def ConfirmarReservaHotels (self, api_Booking):
+        res = api_Booking.confirm_reserve(self.__usuari__, self.__HotelsReservar__)
+        return res
     
-      def ReservaHotelsConsiderantErrors(self):
-        api_Booking = Booking()
+    def ConfirmarReservaCotxes (self, api_Rentalcars):
+        res = api_Rentalcars.confirm_reserve(self.__usuari__, self.__CotxesReservar__)
+        return res
+        
+
+   def ReservaHotelsConsiderantErrors(self, api_Booking):
         resultatConfirmacio = api_Booking.confirm_reserve(self.__usuari__, self.__HotelsReservar__)
         i = 0
         while(resultatConfirmacio == False & i < 3):
@@ -192,8 +196,8 @@ class Viatge:
             api_banc.do_payment(self.__usuari__, self.__dadesPagament__)
             self.__dadesPagament__.__import__ = -1*self.__dadesPagament__.__import__
         return resultatConfirmacio
-    def ReservaCarsConsiderantErrors(self):
-        api_rentalCars = Rentalcars()
+
+    def ReservaCarsConsiderantErrors(self, api_rentalCars):
         resultatConfirmacio = api_rentalCars.confirm_reserve(self.__usuari__, self.__CotxesReservar__)
         i = 0
         while(resultatConfirmacio == False & i < 3):
