@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri May 22 18:37:26 2020
-
-@author: Jordi
-"""
-
 import unittest
 from src.Viatge import Viatge
 from src.Flights import Flights
@@ -19,7 +12,7 @@ class TestGestioallotjament (unittest.TestCase):
          vol.__numPassatgers__ = 2
          vol.__importv__ = 50
          vol.__taxav__ = 1
-#         hotel1 = Hotels(34, "Hotel de la vila", 2, 1, 10, 20, 50) #preu 250
+#         hotel1 preu 250
          hotel1 = Hotels()
          
          hotel1.__codi__ = 34
@@ -29,7 +22,7 @@ class TestGestioallotjament (unittest.TestCase):
          hotel1.__durada__ = 10
          hotel1.__importh__ = 20
          hotel1.__taxah__ = 50
-#         hotel2 = Hotels(35, "Hotel de la serra", 2, 1, 10, 30, 50) #preu 350
+#         hotel2 preu 350
          
          hotel2 = Hotels()
          
@@ -58,7 +51,7 @@ class TestGestioallotjament (unittest.TestCase):
          vol.__numPassatgers__ = 2
          vol.__importv__ = 50
          vol.__taxav__ = 1
-#         hotel1 = Hotels(34, "Hotel de la vila", 2, 1, 10, 20, 50) #preu 250
+#         hotel1 preu 250
          hotel1 = Hotels()
          
          hotel1.__codi__ = 34
@@ -68,7 +61,7 @@ class TestGestioallotjament (unittest.TestCase):
          hotel1.__durada__ = 10
          hotel1.__importh__ = 20
          hotel1.__taxah__ = 50
-#         hotel2 = Hotels(35, "Hotel de la serra", 2, 1, 10, 30, 50) #preu 350
+#         hotel2 preu 350
          
          hotel2 = Hotels()
          

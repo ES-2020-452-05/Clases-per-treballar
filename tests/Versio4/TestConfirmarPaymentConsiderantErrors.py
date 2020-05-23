@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sat May 23 12:15:03 2020
-
-@author: Jordi
-"""
-
 import unittest
 from src.Viatge import Viatge
 from unittest import mock

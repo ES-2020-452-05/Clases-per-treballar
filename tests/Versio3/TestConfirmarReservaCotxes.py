@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri May 22 17:55:20 2020
-
-@author: Jordi
-"""
-
 import unittest
 from src.Viatge import Viatge
 from src.Rentalcars import Rentalcars

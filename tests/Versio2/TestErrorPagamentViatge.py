@@ -1,11 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri May 22 17:26:25 2020
-
-@author: Jordi
-"""
-
-
 import unittest
 from src.Viatge import Viatge
 from src.Bank import Bank

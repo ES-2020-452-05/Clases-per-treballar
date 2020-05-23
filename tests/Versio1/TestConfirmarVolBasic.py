@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri May 22 17:22:29 2020
-
-@author: Jordi
-"""
-
 import unittest
 from src.Viatge import Viatge
 from src.SkyScanner import Skyscanner

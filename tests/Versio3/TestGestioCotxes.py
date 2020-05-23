@@ -1,17 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri May 22 20:45:50 2020
-
-@author: Jordi
-"""
-
-# -*- coding: utf-8 -*-
-"""
-Created on Fri May 22 18:37:26 2020
-
-@author: Jordi
-"""
-
 import unittest
 from src.Viatge import Viatge
 from src.Flights import Flights
