@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun May 17 12:16:48 2020
-
-@author: Jordi
-"""
-
 from src.User import User
 from src.Hotels import Hotels
 

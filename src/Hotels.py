@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun May 17 12:15:20 2020
-
-@author: Jordi
-"""
-
 class Hotels:
 
     __slots__ = {'__codi__','__nom__','__numHostes__','__numHabitacions__','__durada__', '__taxah__','__importh__'}

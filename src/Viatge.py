@@ -1,11 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon May 18 10:49:19 2020
-
-@author: Jordi
-"""
-
-
 from src.PaymentData import PaymentData
 from src.Hotels import Hotels
 from src.Flights import Flights

@@ -1,12 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun May 17 12:10:25 2020
-
-@author: Jordi
-"""
-
-
-
 class User:
 
     __slots__ = {'__nom__','__DNI__','__DirPostal__','__NumTelef__','__Email__'}

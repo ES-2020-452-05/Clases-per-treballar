@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun May 17 12:16:20 2020
-
-@author: Jordi
-"""
-
 class Cars:
 
     __slots__={'__codi__','__marca__','__recollida__','__diesReserva__','__taxac__','__importc__'}

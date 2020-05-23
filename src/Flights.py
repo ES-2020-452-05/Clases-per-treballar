@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun May 17 12:15:51 2020
-
-@author: Jordi
-"""
-
 class Flights:
 
     __slots__ = {'__codiVol__','__desti__','__numPassatgers__', '__importv__', '__taxav__'}
