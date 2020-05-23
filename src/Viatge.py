@@ -209,3 +209,11 @@ class Viatge:
             api_banc.do_payment(self.__usuari__, self.__dadesPagament__)
             self.__dadesPagament__.__import__ = -1*self.__dadesPagament__.__import__
         return resultatConfirmacio
+
+    def ConfirmarPagamentConsiderantErrors(self, api_banc):
+        resultatConfirmacio = api_banc.do_payment(self.__usuari__, self.__dadesPagament__)
+        i = 1
+        while(resultatConfirmacio == False and i < 4):
+            resultatConfirmacio = api_banc.do_payment(self.__usuari__, self.__dadesPagament__)
+            i = i + 1
+        return i
