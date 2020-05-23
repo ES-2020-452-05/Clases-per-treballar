@@ -78,7 +78,7 @@ class Viatge:
                 return -1
             
                 
-    def gestioDestins(gestio,self): #al contrari del que has fet a dalt, no modifiquem la classe flight perque considerem que 
+    def gestioDestins(self, gestio): #al contrari del que has fet a dalt, no modifiquem la classe flight perque considerem que 
         if(gestio==0):                             #la búsqueda de vols es fa a un nivell superior amb l'algoritme
         	ldestins=[]
         	for v in self.__VolsReservar__:
@@ -166,7 +166,7 @@ class Viatge:
     def ReservaVolsConsiderantErrors(self, api_SkyScanner):
         resultatConfirmacio = api_SkyScanner.confirm_reserve(self.__usuari__, self.__VolsReservar__)
         i = 0
-        while(resultatConfirmacio == False & i < 3):
+        while((resultatConfirmacio == False) & (i < 3)):
             resultatConfirmacio = api_SkyScanner.confirm_reserve(self.__usuari__, self.__VolsReservar__)
             i = i + 1
         if(i == 3):
@@ -182,12 +182,19 @@ class Viatge:
     def ConfirmarReservaCotxes (self, api_Rentalcars):
         res = api_Rentalcars.confirm_reserve(self.__usuari__, self.__CotxesReservar__)
         return res
-        
+    
+    def ConfirmarPagamentConsiderantErrors(self, api_banc):
+        resultatConfirmacio = api_banc.do_payment(self.__usuari__, self.__dadesPagament__)
+        i = 1
+        while(resultatConfirmacio == False and i < 4):
+            resultatConfirmacio = api_banc.do_payment(self.__usuari__, self.__dadesPagament__)
+            i = i + 1
+        return i    
 
-   def ReservaHotelsConsiderantErrors(self, api_Booking):
+    def ReservaHotelsConsiderantErrors(self, api_Booking):
         resultatConfirmacio = api_Booking.confirm_reserve(self.__usuari__, self.__HotelsReservar__)
         i = 0
-        while(resultatConfirmacio == False & i < 3):
+        while(resultatConfirmacio == False and i < 3):
             resultatConfirmacio = api_Booking.confirm_reserve(self.__usuari__, self.__HotelsReservar__)
             i = i + 1
         if(i == 3):
@@ -200,7 +207,7 @@ class Viatge:
     def ReservaCarsConsiderantErrors(self, api_rentalCars):
         resultatConfirmacio = api_rentalCars.confirm_reserve(self.__usuari__, self.__CotxesReservar__)
         i = 0
-        while(resultatConfirmacio == False & i < 3):
+        while(resultatConfirmacio == False and i < 3):
             resultatConfirmacio = api_rentalCars.confirm_reserve(self.__usuari__, self.__CotxesReservar__)
             i = i + 1
         if(i == 3):
@@ -209,3 +216,23 @@ class Viatge:
             api_banc.do_payment(self.__usuari__, self.__dadesPagament__)
             self.__dadesPagament__.__import__ = -1*self.__dadesPagament__.__import__
         return resultatConfirmacio
+    
+    def GestionarDadesFacturacio(self, facturacio):
+        correcte = True
+        if(facturacio.getNom() == ''):
+            correcte = False
+        if(facturacio.getDNI() == ''):
+            correcte = False
+        if(facturacio.getDirPostal() < -1):
+            correcte = False
+        if(facturacio.getNumTelef() < -1):
+            correcte = False
+        if(facturacio.getEmail() == ''):
+            correcte = False
+        if(correcte == True):
+            self.__usuari__.__nom__ = facturacio.getNom()
+            self.__usuari__.__DNI__ = facturacio.getDNI()
+            self.__usuari__.__DirPostal__ = facturacio.getDirPostal()
+            self.__usuari__.__NumTelef__ = facturacio.getNumTelef()
+            self.__usuari__.__Email__ = facturacio.getEmail()
+        return correcte  
