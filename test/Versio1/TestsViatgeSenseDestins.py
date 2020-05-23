@@ -15,7 +15,7 @@ class TestsViatgeSenseDestins (unittest.TestCase):
         self.assertEqual(viatge.NumeroDestins(), viatge.NumeroVols())
         self.assertEqual(viatge.NumeroVols(), 0)
         
-    def test4(self):
+    def testPreuZero(self):
         viatge = Viatge()
         viatge.gestioNumP(1,2)
         self.assertEqual(viatge.calcularPreuTotal(),0)

@@ -162,8 +162,9 @@ class Viatge:
             resultatConfirmacio = api_SkyScanner.confirm_reserve(self.__usuari__, self.__VolsReservar__)
             i = i + 1
         if(i == 3):
+            api_banc = Bank()
             self.__dadesPagament__.__import__ = -1*self.__dadesPagament__.__import__
-            self.PagamentViatge()
+            self.PagamentViatge(api_banc)
             self.__dadesPagament__.__import__ = -1*self.__dadesPagament__.__import__
         return resultatConfirmacio
         
@@ -181,7 +182,7 @@ class Viatge:
         while(resultatConfirmacio == False and i < 4):
             resultatConfirmacio = api_banc.do_payment(self.__usuari__, self.__dadesPagament__)
             i = i + 1
-        return i    
+        return resultatConfirmacio   
 
     def ReservaHotelsConsiderantErrors(self, api_Booking):
         resultatConfirmacio = api_Booking.confirm_reserve(self.__usuari__, self.__HotelsReservar__)
@@ -192,7 +193,7 @@ class Viatge:
         if(i == 3):
             api_banc = Bank()
             self.__dadesPagament__.__import__ = -1*self.__dadesPagament__.__import__
-            api_banc.do_payment(self.__usuari__, self.__dadesPagament__)
+            self.PagamentViatge(api_banc)
             self.__dadesPagament__.__import__ = -1*self.__dadesPagament__.__import__
         return resultatConfirmacio
 
@@ -205,7 +206,7 @@ class Viatge:
         if(i == 3):
             api_banc = Bank()
             self.__dadesPagament__.__import__ = -1*self.__dadesPagament__.__import__
-            api_banc.do_payment(self.__usuari__, self.__dadesPagament__)
+            self.PagamentViatge(api_banc)
             self.__dadesPagament__.__import__ = -1*self.__dadesPagament__.__import__
         return resultatConfirmacio
     

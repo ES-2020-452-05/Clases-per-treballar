@@ -3,12 +3,12 @@ from src.Viatge import Viatge
 from src.Flights import Flights
 from src.Cars import Cars
      
-class TestGestioallotjament (unittest.TestCase):      
+class TestGestioCotxes (unittest.TestCase):      
 
     def testCasAfegir (self):
-         vol = Flights() # 152,"Roma", 2, 50, 1 -> preu 101 
-         vol.__codiVol__ = 152
-         vol.__desti__ = "Roma"
+         vol = Flights() # "EF325F","Roma", 2, 50, 1 -> preu 101 
+         vol.__codiVol__ = "EF325F"
+         vol.__desti__ = "ROMA"
          vol.__numPassatgers__ = 2
          vol.__importv__ = 50
          vol.__taxav__ = 1
@@ -43,9 +43,9 @@ class TestGestioallotjament (unittest.TestCase):
          
 
     def testCasEliminar (self):
-         vol = Flights() # 152,"Roma", 2, 50, 1 -> preu 101 
-         vol.__codiVol__ = 152
-         vol.__desti__ = "Roma"
+         vol = Flights() # "EF325F","ROMA", 2, 50, 1 -> preu 101 
+         vol.__codiVol__ = "EF325F"
+         vol.__desti__ = "ROMA"
          vol.__numPassatgers__ = 2
          vol.__importv__ = 50
          vol.__taxav__ = 1

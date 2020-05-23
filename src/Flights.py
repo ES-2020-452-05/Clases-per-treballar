@@ -3,7 +3,7 @@ class Flights:
     __slots__ = {'__codiVol__','__desti__','__numPassatgers__', '__importv__', '__taxav__'}
     
     def __init__(self):
-        self.__codiVol__ = -1
+        self.__codiVol__ = ''
         self.__desti__ = ''
         self.__numPassatgers__ = -1
         self.__importv__ = -1

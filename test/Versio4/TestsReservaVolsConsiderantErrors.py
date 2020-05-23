@@ -1,14 +1,14 @@
 import unittest
 from src.Viatge import Viatge
 from unittest import mock
-from src.Bank import Bank
+from src.SkyScanner import Skyscanner
 from src.Flights import Flights
 
 
-class TestsConfirmarPagamentConsiderantErrors (unittest.TestCase):
+class TestsReservaVolsConsiderantErrors (unittest.TestCase):
     
-    def CasUnFalse(self):
-        copia_api_banc = mock.create_autospec(Bank)
+    def testCasUnFalse(self):
+        copia_api_Skyscanner = mock.create_autospec(Skyscanner)
         viatge=Viatge()
         viatge.gestioNumP(1,2)
         vol1=Flights()
@@ -18,12 +18,12 @@ class TestsConfirmarPagamentConsiderantErrors (unittest.TestCase):
         vol2.__initp__("EY4325F","PARIS",2,170,0)
         viatge.afegirVol(vol2)
         
-        copia_api_banc.do_payment.side_effect=[False,True]
-        res=viatge.ConfirmarPagamentConsiderantErrors(copia_api_banc)
-        self.assertEqual(res,2)
+        copia_api_Skyscanner.confirm_reserve.side_effect=[False,True]
+        viatge.ReservaVolsConsiderantErrors(copia_api_Skyscanner)
+        self.assertEqual(copia_api_Skyscanner.confirm_reserve.call_count, 2)
     
-    def CasTrue(self):
-        copia_api_banc = mock.create_autospec(Bank)
+    def testCasTrue(self):
+        copia_api_Skyscanner = mock.create_autospec(Skyscanner)
         viatge=Viatge()
         viatge.gestioNumP(1,2)
         vol1=Flights()
@@ -33,12 +33,12 @@ class TestsConfirmarPagamentConsiderantErrors (unittest.TestCase):
         vol2.__initp__("EY4325F","PARIS",2,170,0)
         viatge.afegirVol(vol2)
         
-        copia_api_banc.do_payment.return_value=True
-        res=viatge.ConfirmarPagamentConsiderantErrors(copia_api_banc)
-        self.assertEqual(res,1)
+        copia_api_Skyscanner.confirm_reserve.return_value=True
+        res=viatge.ReservaVolsConsiderantErrors(copia_api_Skyscanner)
+        self.assertTrue(res)
     
-    def CasFalse(self):
-        copia_api_banc = mock.create_autospec(Bank)
+    def testCasFalse(self):
+        copia_api_Skyscanner = mock.create_autospec(Skyscanner)
         viatge=Viatge()
         viatge.gestioNumP(1,2)
         vol1=Flights()
@@ -48,9 +48,9 @@ class TestsConfirmarPagamentConsiderantErrors (unittest.TestCase):
         vol2.__initp__("EY4325F","PARIS",2,170,0)
         viatge.afegirVol(vol2)
         
-        copia_api_banc.do_payment.return_value = False
-        res=viatge.ConfirmarPagamentConsiderantErrors(copia_api_banc)
-        self.assertEqual(res,4)
+        copia_api_Skyscanner.confirm_reserve.return_value = False
+        viatge.ReservaVolsConsiderantErrors(copia_api_Skyscanner)
+        self.assertEqual(copia_api_Skyscanner.confirm_reserve.call_count,4)
     
     
 if __name__ == '__main__':

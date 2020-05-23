@@ -1,10 +1,6 @@
 import unittest
 from src.User import User
-from src.PaymentData import PaymentData
-from src.Hotels import Hotels
 from src.Flights import Flights
-from src.Cars import Cars
-from src.SkyScanner import Skyscanner
 from src.Viatge import Viatge
 
 class TestGestionarDadesFacturacio(unittest.TestCase):

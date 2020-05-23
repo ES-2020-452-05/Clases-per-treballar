@@ -3,7 +3,7 @@ from src.Viatge import Viatge
 from src.Bank import Bank
 from unittest import mock
      
-class TestPagamentViatge (unittest.TestCase):      
+class TestPagamentBasic(unittest.TestCase):      
 
     def testEsCridaBanc (self):
          copia_api_Bank = mock.create_autospec(Bank)
